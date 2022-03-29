@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 
-public class ElitEnemy extends AbstractAircraft {
+public class ElitEnemy extends AbstractAircraft{
 
     public ElitEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);

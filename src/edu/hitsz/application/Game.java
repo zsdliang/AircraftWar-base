@@ -1,5 +1,9 @@
 package edu.hitsz.application;
 
+import edu.hitsz.EnemyFactory.BossFactory;
+import edu.hitsz.EnemyFactory.ElitFactory;
+import edu.hitsz.EnemyFactory.EnemyFactory;
+import edu.hitsz.EnemyFactory.MobFactory;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
@@ -35,6 +39,11 @@ public class Game extends JPanel {
     private int timeInterval = 40;
     private int enemyshootInterval = 40;/////////////////
 
+    //产生敌机工厂
+    private final EnemyFactory bossfactory = new BossFactory();
+    private final EnemyFactory elitfactory = new ElitFactory();
+    private final EnemyFactory mobfactory = new MobFactory();
+    //定义各种飞行物体
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;
     private final List<AbstractBullet> heroBullets;
@@ -57,6 +66,7 @@ public class Game extends JPanel {
 
 
     public Game() {
+
         // 产生英雄机
         heroAircraft = HeroAircraft.getInstance();
 
@@ -86,6 +96,8 @@ public class Game extends JPanel {
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
 
+
+
             time += timeInterval;
 
             // 周期性执行（控制频率）
@@ -97,23 +109,14 @@ public class Game extends JPanel {
                     int i = Math.abs(random.nextInt()) % 20;
                     //以17:3的比例生成敌机
                     if(i < 17) {
-                        enemyAircrafts.add(new MobEnemy(
-                                (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())) * 1,
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
-                                0,
-                                5,
-                                30
-                        ));
+                        enemyAircrafts.add(mobfactory.creatEnemy());
                     }
                     if(i >= 17) {
-                        enemyAircrafts.add(new ElitEnemy(
-                                (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
-                                3,
-                                1,
-                                50
-                        ));
+                        enemyAircrafts.add(elitfactory.creatEnemy());
                     }
+                }
+                if(score > 0 && score % 500 == 0){
+                    enemyAircrafts.add(bossfactory.creatEnemy());
                 }
                 // 飞机射出子弹
                 shootAction();
@@ -286,6 +289,9 @@ public class Game extends JPanel {
                         }
                         if (enemyAircraft instanceof MobEnemy) {
                             score += 10;
+                        }
+                        if (enemyAircraft instanceof Boss){
+                            score += 100;
                         }
                     }
                 }
