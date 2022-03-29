@@ -10,6 +10,10 @@ import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.Prop_Blood;
 import edu.hitsz.prop.Prop_Bomb;
 import edu.hitsz.prop.Prop_Bullet;
+import edu.hitsz.propfactory.PropFactory;
+import edu.hitsz.propfactory.Prop_BloodFactory;
+import edu.hitsz.propfactory.Prop_BombFactory;
+import edu.hitsz.propfactory.Prop_BulletFactory;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -39,10 +43,14 @@ public class Game extends JPanel {
     private int timeInterval = 40;
     private int enemyshootInterval = 40;/////////////////
 
-    //产生敌机工厂
+    //敌机工厂
     private final EnemyFactory bossfactory = new BossFactory();
     private final EnemyFactory elitfactory = new ElitFactory();
     private final EnemyFactory mobfactory = new MobFactory();
+    //道具工厂
+    private final PropFactory prop_bloodfactory = new Prop_BloodFactory();
+    private final PropFactory prop_bulletfactory = new Prop_BulletFactory();
+    private final PropFactory prop_bombfactory = new Prop_BombFactory();
     //定义各种飞行物体
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;
@@ -109,14 +117,26 @@ public class Game extends JPanel {
                     int i = Math.abs(random.nextInt()) % 20;
                     //以17:3的比例生成敌机
                     if(i < 17) {
-                        enemyAircrafts.add(mobfactory.creatEnemy());
+                        enemyAircrafts.add(mobfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
+                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
+                                3,
+                                1,
+                                50));
                     }
                     if(i >= 17) {
-                        enemyAircrafts.add(elitfactory.creatEnemy());
+                        enemyAircrafts.add(elitfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
+                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
+                                3,
+                                1,
+                                50));
                     }
                 }
                 if(score > 0 && score % 500 == 0){
-                    enemyAircrafts.add(bossfactory.creatEnemy());
+                    enemyAircrafts.add(bossfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
+                            (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
+                            3,
+                            0,
+                            500));
                 }
                 // 飞机射出子弹
                 shootAction();
@@ -259,8 +279,8 @@ public class Game extends JPanel {
                         // TODO 获得分数，产生道具补给
                         if (enemyAircraft instanceof ElitEnemy ) {
                             score += 20;
-                            if((int)(Math.random()*3) == 0) {
-                                props.add(new Prop_Blood(
+                            if((int)(Math.random()*7) == 0) {
+                                props.add(prop_bloodfactory.creatprop(
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
@@ -268,8 +288,8 @@ public class Game extends JPanel {
                                         1
                                 ));
                             }
-                            else if((int)(Math.random()*3) == 1) {
-                                props.add(new Prop_Bomb(
+                            else if((int)(Math.random()*7) == 1) {
+                                props.add(prop_bombfactory.creatprop(
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
@@ -277,8 +297,8 @@ public class Game extends JPanel {
                                         1
                                 ));
                             }
-                            else if((int)(Math.random()*3) == 2) {
-                                props.add(new Prop_Bullet(
+                            else if((int)(Math.random()*7) == 2) {
+                                props.add(prop_bulletfactory.creatprop(
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
