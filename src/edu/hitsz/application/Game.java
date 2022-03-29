@@ -63,6 +63,8 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
     private int score = 0;
     private int time = 0;
+    //判断boss机是否存在
+    private boolean bossexisting = false;
     /**
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
@@ -112,16 +114,16 @@ public class Game extends JPanel {
             if (timeCountAndNewCycleJudge()) {
                 System.out.println(time);
                 // 新敌机产生
-                if (enemyAircrafts.size() < enemyMaxNumber) {
+                if (enemyAircrafts.size() < enemyMaxNumber && !bossexisting) {
                     Random random = new Random();
                     int i = Math.abs(random.nextInt()) % 20;
                     //以17:3的比例生成敌机
                     if(i < 17) {
                         enemyAircrafts.add(mobfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
+                                0,
                                 3,
-                                1,
-                                50));
+                                20));
                     }
                     if(i >= 17) {
                         enemyAircrafts.add(elitfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
@@ -130,13 +132,14 @@ public class Game extends JPanel {
                                 1,
                                 50));
                     }
-                }
-                if(score > 0 && score % 500 == 0){
-                    enemyAircrafts.add(bossfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
-                            (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
-                            3,
-                            0,
-                            500));
+                    if(score > 10 && (score % 500 == 0 || score % 500 == 10)){
+                        enemyAircrafts.add(bossfactory.creatEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELIT_ENEMY_IMAGE.getWidth())) * 1,
+                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2) * 1,
+                                3,
+                                0,
+                                500));
+                        bossexisting = true;
+                    }
                 }
                 // 飞机射出子弹
                 shootAction();
@@ -214,7 +217,7 @@ public class Game extends JPanel {
     private void enemyShootaction() {
         //敌机射击
         for(AbstractAircraft enemy:enemyAircrafts){
-            if(enemy instanceof ElitEnemy) {
+            if(enemy instanceof ElitEnemy || enemy instanceof Boss) {
                 enemyBullets.addAll(enemy.shoot());
             }
         }
@@ -312,6 +315,7 @@ public class Game extends JPanel {
                         }
                         if (enemyAircraft instanceof Boss){
                             score += 100;
+                            bossexisting = false;
                         }
                     }
                 }
