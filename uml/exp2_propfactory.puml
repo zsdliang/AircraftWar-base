@@ -1,0 +1,72 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PropFactory{
+        +AbstractAircraft creatprop(int locationX, int locationY, int speedX, int speedY, int hp)
+    }
+
+class Prop_BloodFactory{
+        +AbstractAircraft creatprop(int locationX, int locationY, int speedX, int speedY, int hp)
+    }
+
+class Prop_BulletFactory{
+        +AbstractAircraft creatprop(int locationX, int locationY, int speedX, int speedY, int hp)
+    }
+
+class Prop_BombFactory{
+        +AbstractAircraft creatprop(int locationX, int locationY, int speedX, int speedY, int hp)
+    }
+
+class AbstractFlyingObject{
+        # locationX:int
+        # locationY:int
+        # speedX:int
+        # speedY:int
+        + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+        + Forward():void
+        + valish():void
+    }
+
+class AbstractAircraft{
+        # axHp:int
+        # hp:int
+        + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+        + decreaseHp(int decrease):void
+        + getHp():int
+        + {abstract} shoot():List<BaseBullet>
+    }
+
+class Prop_Blood{
+        + Prop_Blood(int locationX, int locationY, int speedX, int speedY, int hp)
+        + forward():void
+        + shoot():List<EnemyBullet>
+    }
+
+class Prop_Bullet{
+        + Prop_Bullet(int locationX, int locationY, int speedX, int speedY, int hp)
+        + forward():void
+        + shoot():List<EnemyBullet>
+    }
+
+class Prop_Bomb{
+        + Prop_Bomb(int locationX, int locationY, int speedX, int speedY, int hp)
+        + forward():void
+        + shoot():List<EnemyBullet>
+    }
+
+AbstractAircraft <|-- AbstractFlyingObject
+Prop_Blood <|-- AbstractAircraft
+Prop_Bullet <|-- AbstractAircraft
+Prop_Bomb <|-- AbstractAircraft
+
+Prop_BloodFactory ..|> PropFactory
+Prop_BulletFactory ..|> PropFactory
+Prop_BombFactory ..|> PropFactory
+
+Prop_BloodFactory ..> Prop_Blood:<<create>>
+Prop_BulletFactory ..> Prop_Bullet:<<create>>
+Prop_BombFactory ..> Prop_Bomb:<<create>>
+
+
+
+@enduml
