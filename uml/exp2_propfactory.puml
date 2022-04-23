@@ -17,24 +17,6 @@ class Prop_BombFactory{
         +AbstractAircraft creatprop(int locationX, int locationY, int speedX, int speedY, int hp)
     }
 
-class AbstractFlyingObject{
-        # locationX:int
-        # locationY:int
-        # speedX:int
-        # speedY:int
-        + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
-        + Forward():void
-        + valish():void
-    }
-
-class AbstractAircraft{
-        # axHp:int
-        # hp:int
-        + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
-        + decreaseHp(int decrease):void
-        + getHp():int
-        + {abstract} shoot():List<BaseBullet>
-    }
 
 class Prop_Blood{
         + Prop_Blood(int locationX, int locationY, int speedX, int speedY, int hp)

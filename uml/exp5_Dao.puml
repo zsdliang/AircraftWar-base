@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Game {
+}
+class Data {
+    -score:int
+    -name:String
+    +getScore():int
+    +setScore():void
+    +getName():String
+    +setName():void
+}
+
+interface ScoreDao {
+    +keepScore():void
+    +getRankingList():void
+}
+
+class ScoreDaolmpl {
+    -dataList:List<Data>
+    -file:File
+    +keepScore():void
+    +getRankingList():void
+}
+
+ScoreDao <.. Game
+ScoreDao <|.. ScoreDaolmpl
+Data <-- ScoreDaolmpl
+
+@enduml

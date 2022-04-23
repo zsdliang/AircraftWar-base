@@ -1,14 +1,16 @@
-package edu.hitsz.propfactory;
+package edu.hitsz.enemyfactory;
 
 import edu.hitsz.aircraft.AbstractAircraft;
+
 /**
  *@author:hdl
  */
-public interface PropFactory {
+
+public interface EnemyFactory {
     /**
-     *抽象创造道具
+     *抽象制造敌机的工厂
      */
-    public AbstractAircraft creatprop(
+    public AbstractAircraft creatEnemy(
             /**
              *locationX
              */

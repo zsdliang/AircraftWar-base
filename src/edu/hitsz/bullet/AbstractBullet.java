@@ -13,7 +13,7 @@ public class AbstractBullet extends AbstractFlyingObject {
 
     private int power = 10;
 
-    public AbstractBullet(int locationX, int locationY, int speedX, int speedY, int power) {
+    public AbstractBullet(double locationX, double locationY, double speedX, double speedY, int power) {
         super(locationX, locationY, speedX, speedY);
         this.power = power;
     }

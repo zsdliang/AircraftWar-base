@@ -2,6 +2,7 @@ package edu.hitsz.application;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * 程序入口
@@ -12,7 +13,7 @@ public class Main {
     public static final int WINDOW_WIDTH = 512;
     public static final int WINDOW_HEIGHT = 768;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("Hello Aircraft War");
 

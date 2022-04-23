@@ -17,23 +17,23 @@ public abstract class AbstractFlyingObject {
     /**
      * x 轴坐标
      */
-    protected int locationX;
+    protected double locationX;
 
     /**
      * y 轴坐标
      */
-    protected int locationY;
+    protected double locationY;
 
 
     /**
      * x 轴移动速度
      */
-    protected int speedX;
+    protected double speedX;
 
     /**
      * y 轴移动速度
      */
-    protected int speedY;
+    protected double speedY;
 
     /**
      * 图片,
@@ -63,7 +63,7 @@ public abstract class AbstractFlyingObject {
     public AbstractFlyingObject() {
     }
 
-    public AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY) {
+    public AbstractFlyingObject(double locationX, double locationY, double speedX, double speedY) {
         this.locationX = locationX;
         this.locationY = locationY;
         this.speedX = speedX;
@@ -106,8 +106,8 @@ public abstract class AbstractFlyingObject {
         int factor = this instanceof AbstractAircraft ? 2 : 1;
         int fFactor = flyingObject instanceof AbstractAircraft ? 2 : 1;
 
-        int x = flyingObject.getLocationX();
-        int y = flyingObject.getLocationY();
+        double x = flyingObject.getLocationX();
+        double y = flyingObject.getLocationY();
         int fWidth = flyingObject.getWidth();
         int fHeight = flyingObject.getHeight();
 
@@ -117,20 +117,20 @@ public abstract class AbstractFlyingObject {
                 && y - ( fHeight/fFactor+this.getHeight()/factor )/2 < locationY;
     }
 
-    public int getLocationX() {
+    public double getLocationX() {
         return locationX;
     }
 
-    public int getLocationY() {
+    public double getLocationY() {
         return locationY;
     }
 
     public void setLocation(double locationX, double locationY){
-        this.locationX = (int) locationX;
-        this.locationY = (int) locationY;
+        this.locationX = locationX;
+        this.locationY = locationY;
     }
 
-    public int getSpeedY() {
+    public double getSpeedY() {
         return speedY;
     }
 
