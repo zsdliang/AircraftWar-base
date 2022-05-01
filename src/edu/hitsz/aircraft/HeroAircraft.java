@@ -1,7 +1,7 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.ImageManager;
-import edu.hitsz.application.Main;
+import edu.hitsz.application.gui.Main;
 
 /**
  * 英雄飞机，游戏玩家操控
@@ -18,6 +18,7 @@ public class HeroAircraft extends AbstractAircraft {
         // 英雄机由鼠标控制，不通过forward函数移动
     }
 
+
     private static HeroAircraft instance = null;
     public static synchronized HeroAircraft getInstance() {
         if(instance == null) {
@@ -28,5 +29,9 @@ public class HeroAircraft extends AbstractAircraft {
         return instance;
     }
 
+    public void setInitLocation(){
+        this.locationX = Main.WINDOW_WIDTH / 2;
+        this.locationY = Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight();
+    }
 
 }

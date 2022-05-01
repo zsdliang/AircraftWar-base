@@ -5,6 +5,7 @@ import edu.hitsz.aircraft.Boss;
 import edu.hitsz.aircraft.ElitEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.aircraft.MobEnemy;
+import edu.hitsz.application.gui.Main;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.prop.PropBlood;
@@ -46,7 +47,7 @@ public class ImageManager {
     static {
         try {
 
-            BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg.jpg"));
+            BACKGROUND_IMAGE = ImageIO.read(new FileInputStream(Main.map));
 
             HERO_IMAGE = ImageIO.read(new FileInputStream("src/images/hero.png"));
             MOB_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/mob.png"));
@@ -76,6 +77,10 @@ public class ImageManager {
 
     public static BufferedImage get(String className){
         return CLASSNAME_IMAGE_MAP.get(className);
+    }
+
+    public static void changeMap() throws IOException {
+        BACKGROUND_IMAGE = ImageIO.read(new FileInputStream(Main.map));
     }
 
     public static BufferedImage get(Object obj){

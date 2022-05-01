@@ -3,14 +3,24 @@ package edu.hitsz.data;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ScoreDaolmpl implements ScoreDao {
+    private String SIMPLE_FILE = "./record_simple.ser";
+    private String NORMAL_FILE = "./record_normal.ser";
+    private String DIFFICULT_FILE = "./record_difficult.ser";
     private List<Data> dataList = null;
-    private File file = new File("./record.ser");
+    private File file;
 
-    public ScoreDaolmpl() throws IOException {
-
+    public ScoreDaolmpl(int difficulty) throws IOException {
+        if(difficulty == 1) {
+            file = new File(SIMPLE_FILE);
+        }
+        else if(difficulty == 2) {
+            file = new File(NORMAL_FILE);
+        }
+        else {
+            file = new File(DIFFICULT_FILE);
+        }
         FileInputStream filein = null;
         try {
             if (file.exists()) {
@@ -34,10 +44,7 @@ public class ScoreDaolmpl implements ScoreDao {
 
 
     @Override
-    public void keepScore(int score) throws IOException {
-        Scanner s = new Scanner(System.in);
-        String name = s.nextLine();
-        s.close();
+    public void keepScore(int score,String name) throws IOException {
         Data data = new Data(score, name);
         dataList.add(data);
 
@@ -48,13 +55,24 @@ public class ScoreDaolmpl implements ScoreDao {
         ObjectOutputStream out = new ObjectOutputStream(fileout);
         out.writeObject(dataList);
         fileout.close();
+    }
 
+    @Override
+    public void keepScore(List<Data> dataList) throws IOException{
+        if (file.exists()) {
+            file.delete();
+        }
+        FileOutputStream fileout = new FileOutputStream(file);
+        ObjectOutputStream out = new ObjectOutputStream(fileout);
+        out.writeObject(dataList);
+        fileout.close();
     }
 
     ;
 
     @Override
-    public void getRankingList() {
+    public List<Data> getRankingList() {
+
         dataList.sort((o1, o2) -> {
             if (o1.getScore() >= o2.getScore()) {
                 return -1;
@@ -62,8 +80,7 @@ public class ScoreDaolmpl implements ScoreDao {
                 return 1;
             }
         });
-        for (Data i : dataList) {
-            System.out.println("score:" + i.getScore() + "name:" + i.getName());
-        }
+        return dataList;
     }
+
 }

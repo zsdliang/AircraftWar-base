@@ -1,6 +1,6 @@
 package edu.hitsz.bullet;
 
-import edu.hitsz.application.Main;
+import edu.hitsz.application.gui.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 
 /**

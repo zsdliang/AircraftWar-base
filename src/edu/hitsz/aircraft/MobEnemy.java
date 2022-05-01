@@ -1,6 +1,6 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Main;
+import edu.hitsz.application.gui.Main;
 
 /**
  * 普通敌机

@@ -45,6 +45,9 @@ public abstract class  AbstractAircraft extends AbstractFlyingObject {
         return power;
     }
 
+    public void setHp(int Hp) {
+        hp = Hp;
+    }
     public void decreaseHp(int decrease){
         hp -= decrease;
         if(hp <= 0){

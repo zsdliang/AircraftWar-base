@@ -16,8 +16,13 @@ public class EnemyShoot implements ShootStrategy{
         double y = abstractAircraft.getLocationY() + direction*2;
         double speedX = 0;
         double speedY = abstractAircraft.getSpeedY() + direction*7;
-        AbstractBullet abstractBullet = new EnemyBullet(x, y, speedX, speedY,20);
-        res.add(abstractBullet);
+        AbstractBullet abstractBullet;
+        for(int i=0; i<abstractAircraft.getShootNum(); i++){
+            // 子弹发射位置相对飞机位置向前偏移
+            // 多个子弹横向分散
+            abstractBullet = new EnemyBullet(x + (i*3 - abstractAircraft.getShootNum() + 1)*10, y, speedX, speedY, abstractAircraft.getPower());
+            res.add(abstractBullet);
+        }
         return res;
     }
 
