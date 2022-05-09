@@ -1,7 +1,6 @@
 package edu.hitsz.application.gui;
 
-import edu.hitsz.application.Game;
-import edu.hitsz.application.ImageManager;
+import edu.hitsz.application.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +19,7 @@ public class Main {
     public final int NORMAL = 2;
     public final int DIFFICULT = 3;
 
-    private JFrame frame = new JFrame();
+    private static JFrame frame = new JFrame();
     private JPanel panel1;
     private JButton simpleButton;
     private JButton normalButton;
@@ -29,7 +28,7 @@ public class Main {
 
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private boolean musicActive = true;
-    private boolean isGameRuning = false;
+    private static boolean isGameRuning = false;
     private boolean isRadioButtonClicked = true;
 
 
@@ -45,7 +44,7 @@ public class Main {
                     if(!isGameRuning) {
                         difficulty = SIMPLE;
                         map = "src/images/bg.jpg";
-                        ImageManager.changeMap();
+                        ImageManager.setMap();
                         gameFrame(frame,SIMPLE);
                         isGameRuning = true;
                     }
@@ -62,7 +61,7 @@ public class Main {
                     if(!isGameRuning) {
                         difficulty = NORMAL;
                         map = "src/images/bg4.jpg";
-                        ImageManager.changeMap();
+                        ImageManager.setMap();
                         gameFrame(frame,NORMAL);
                         isGameRuning = true;
 
@@ -80,7 +79,7 @@ public class Main {
                     if(!isGameRuning) {
                         difficulty = DIFFICULT;
                         map = "src/images/bg5.jpg";
-                        ImageManager.changeMap();
+                        ImageManager.setMap();
                         gameFrame(frame,DIFFICULT);
                         isGameRuning = true;
                     }
@@ -111,7 +110,7 @@ public class Main {
         frame.setBounds(((int) screenSize.getWidth() - WINDOW_WIDTH) / 2, 0,
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Game game = new Game(musicActive);
+        GameTemplate game = difficulty==SIMPLE?(new Game_Simple(musicActive)):(difficulty==NORMAL?(new Game_Normal(musicActive)):(new Game_Difficult(musicActive)));
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -130,13 +129,15 @@ public class Main {
 
             }
         });
-
-        game.setDifficulty(difficulty);
         frame.setContentPane(game);
         frame.setVisible(true);
         game.action();
     }
 
+    public static void diposeFrame() {
+        frame.dispose();
+        isGameRuning = false;
+    }
     public static void main(String[] args) throws IOException {
         JFrame frame = new JFrame();
         frame.setSize(400,500);

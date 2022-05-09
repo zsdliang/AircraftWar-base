@@ -67,6 +67,10 @@ public abstract class  AbstractAircraft extends AbstractFlyingObject {
     public List<AbstractBullet> executeStrategy() {
         return shootStrategy.shoot(this);
     }
+
+    public void update(int damage) {
+        decreaseHp(damage);
+    }
 }
 
 

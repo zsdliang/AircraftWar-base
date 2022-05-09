@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractFlyingObject {}
+
+abstract class AbstractAircfraft {
+}
+
+abstract class AbstractBullet {
+}
+
+class Boss {
+}
+
+class ElitEnemy {
+}
+
+class HeroAircraft {
+}
+
+class WingPlane {
+}
+
+class MobEnemy {
+}
+
+class EnemyBullet {
+}
+
+class HeroBullet {
+}
+
+class PropBlood {
+}
+
+class PropBomb {
+}
+
+class PropBullet {
+}
+
+class PropCall {
+}
+
+AbstractFlyingObject <|-- AbstractAircfraft
+AbstractFlyingObject <|-- AbstractBullet
+AbstractAircfraft <|-- HeroAircraft
+AbstractAircfraft <|-- WingPlane
+AbstractAircfraft <|-- MobEnemy
+AbstractAircfraft <|-- ElitEnemy
+AbstractAircfraft <|-- Boss
+AbstractAircfraft <|-- PropBullet
+AbstractAircfraft <|-- PropBomb
+AbstractAircfraft <|-- PropBlood
+AbstractAircfraft <|-- PropCall
+AbstractBullet <|-- EnemyBullet
+AbstractBullet <|-- HeroBullet
+
+
+@enduml

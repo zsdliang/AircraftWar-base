@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class PropBomb {
+    -enemyList:List<AbstractAircraft>
+    -bulletList:List<AbstractBullet>
+    -damage:int
+    +addEnemy(List<AbstractAircraft> enemyList):void
+    +addBullet(List<AbstractBullet> bulletList):void
+    +notifyAll(int damage):void
+    +action():void
+}
+
+class AbstractAircraft{
+    +update(damage):void
+}
+
+class AbstractBullet{
+    +update():void
+}
+
+PropBomb o--> AbstractBullet
+PropBomb o--> AbstractAircraft
+@enduml

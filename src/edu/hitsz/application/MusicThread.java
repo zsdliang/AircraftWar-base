@@ -12,7 +12,7 @@ public class MusicThread extends Thread {
     private byte[] samples;
     private Object lock = new Object();
     private volatile boolean isStop = false;
-    private boolean singlePlay = false;
+    private boolean singlePlay = true;
     private boolean musicActive;
     private boolean isRunning = true;
 
@@ -103,10 +103,9 @@ public class MusicThread extends Thread {
                 play(stream);
             }
             if(singlePlay) {
-                stopPlay();
+                break;
             }
         }
-        while(isRunning) {}
     }
 
     public void stopPlay() {

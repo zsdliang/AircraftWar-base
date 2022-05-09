@@ -8,7 +8,7 @@ import edu.hitsz.application.gui.Main;
  * @author hitsz
  */
 public class HeroAircraft extends AbstractAircraft {
-
+    private boolean isLimitBreaking = false;
     private HeroAircraft(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
     }
@@ -34,4 +34,16 @@ public class HeroAircraft extends AbstractAircraft {
         this.locationY = Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight();
     }
 
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+        this.isValid = true;
+    }
+
+    public boolean isLimitBreaking() {
+        return isLimitBreaking;
+    }
+    public void setLimitBreaking(boolean isLimitBreaking) {
+        this.isLimitBreaking = isLimitBreaking;
+    }
 }

@@ -1,16 +1,14 @@
 package edu.hitsz.application;
 
 
-import edu.hitsz.aircraft.Boss;
-import edu.hitsz.aircraft.ElitEnemy;
-import edu.hitsz.aircraft.HeroAircraft;
-import edu.hitsz.aircraft.MobEnemy;
+import edu.hitsz.aircraft.*;
 import edu.hitsz.application.gui.Main;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.prop.PropBlood;
 import edu.hitsz.prop.PropBomb;
 import edu.hitsz.prop.PropBullet;
+import edu.hitsz.prop.PropCall;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -43,6 +41,8 @@ public class ImageManager {
     public static BufferedImage PROP_BLOOD_IMAGE;
     public static BufferedImage PROP_BOMB_IMAGE;
     public static BufferedImage PROP_BULLET_IMAGE;
+    public static BufferedImage PROP_CALL_IMAGE;
+    public static BufferedImage WING_PLANE_IMAGE;
 
     static {
         try {
@@ -58,6 +58,8 @@ public class ImageManager {
             PROP_BLOOD_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_blood.png"));
             PROP_BOMB_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bomb.png"));
             PROP_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bullet.png"));
+            PROP_CALL_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_call.png"));
+            WING_PLANE_IMAGE = ImageIO.read(new FileInputStream("src/images/wing.png"));
 
             CLASSNAME_IMAGE_MAP.put(HeroAircraft.class.getName(), HERO_IMAGE);
             CLASSNAME_IMAGE_MAP.put(MobEnemy.class.getName(), MOB_ENEMY_IMAGE);
@@ -68,6 +70,8 @@ public class ImageManager {
             CLASSNAME_IMAGE_MAP.put(PropBlood.class.getName(), PROP_BLOOD_IMAGE);
             CLASSNAME_IMAGE_MAP.put(PropBomb.class.getName(), PROP_BOMB_IMAGE);
             CLASSNAME_IMAGE_MAP.put(PropBullet.class.getName(), PROP_BULLET_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(PropCall.class.getName(), PROP_CALL_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(WingPlane.class.getName(), WING_PLANE_IMAGE);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,8 +83,11 @@ public class ImageManager {
         return CLASSNAME_IMAGE_MAP.get(className);
     }
 
-    public static void changeMap() throws IOException {
+    public static void setMap() throws IOException {
         BACKGROUND_IMAGE = ImageIO.read(new FileInputStream(Main.map));
+    }
+    public static void changeMap(String map) throws IOException {
+        BACKGROUND_IMAGE = ImageIO.read(new FileInputStream(map));
     }
 
     public static BufferedImage get(Object obj){

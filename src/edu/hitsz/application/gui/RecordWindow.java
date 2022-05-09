@@ -31,6 +31,7 @@ public class RecordWindow {
                     ex.printStackTrace();
                 }
                 frame.dispose();
+                Main.diposeFrame();
                 try {
                     ScoreTable.setScoreTable();
                 } catch (IOException ex) {
@@ -42,11 +43,7 @@ public class RecordWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                try {
-                    ScoreTable.setScoreTable();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                Main.diposeFrame();
             }
         });
 

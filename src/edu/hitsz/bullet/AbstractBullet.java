@@ -40,4 +40,8 @@ public class AbstractBullet extends AbstractFlyingObject {
     public int getPower() {
         return power;
     }
+
+    public void update() {
+        this.isValid = false;
+    }
 }
